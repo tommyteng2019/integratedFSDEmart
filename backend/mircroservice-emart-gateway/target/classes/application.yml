@@ -1,0 +1,27 @@
+server:
+  port: 7001
+spring:
+  application:
+    name: microservice-zuul-gateway
+
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:6001/eureka
+  instance:
+    instance-id: ${spring.application.name}:${server.port}
+    prefer-ip-address: true
+
+zuul:
+  routes:
+    microservice-product:
+      path: /microservice-product/**
+      serviceId: microservice-product
+    microservice-user:
+      path: /microservice-user/**
+      serviceId: microservice-user
+    microservice-order:
+      path: /microservice-order/**
+      serviceId: microservice-order
